@@ -50,6 +50,8 @@ return [
         'words-audio' => [
             'driver' => 'local',
             'root' => storage_path('app/words-audio'),
+            'url' => env('APP_URL').'/storage/words-audio',
+            'visibility' => 'public',
         ],
 
         's3' => [
