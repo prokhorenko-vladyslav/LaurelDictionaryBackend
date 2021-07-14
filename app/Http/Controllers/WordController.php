@@ -6,12 +6,17 @@ use App\Http\Resources\WordResource;
 use App\Models\Dictionary;
 use App\Models\Word;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class WordController extends Controller
 {
-    public function index(Dictionary $dictionary)
+    public function index(int $dictionaryId)
     {
-        $words = $dictionary->words()->with('audio')->paginate();
+        $words = Word::query()
+                    ->where('dictionary_id', $dictionaryId)
+                    ->with('audio')
+                    ->paginate();
+
         return WordResource::collection($words);
     }
 }

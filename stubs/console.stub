@@ -1,25 +1,24 @@
 <?php
 
-namespace App\Console\Commands;
+namespace {{ namespace }};
 
-use App\Models\User;
 use Illuminate\Console\Command;
 
-class GenerateDailyWords extends Command
+class {{ class }} extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'daily-word:generate';
+    protected $signature = '{{ command }}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Generates daily words for every user';
+    protected $description = 'Command description';
 
     /**
      * Create a new command instance.
@@ -38,8 +37,6 @@ class GenerateDailyWords extends Command
      */
     public function handle()
     {
-        $users = User::query()->with('dailyDictionaries')->get();
-        dd($users[0]->dailyDictionaries);
         return 0;
     }
 }

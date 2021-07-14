@@ -1,17 +1,13 @@
 <?php
 
-namespace App\Models;
+namespace {{ namespace }};
 
-use App\Traits\PaginationFromLimit;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\PaginationFromLimit;
 
-class Language extends Model
+class {{ class }} extends Model
 {
     use HasFactory;
     use PaginationFromLimit;
-
-    protected $fillable = [
-        'title', 'alias'
-    ];
 }

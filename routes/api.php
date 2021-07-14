@@ -38,8 +38,8 @@ Route::middleware('auth:api')->group(function() {
     Route::apiResource('user/setting', UserSettingController::class)->only('update');
 
     Route::apiResource('dictionary', DictionaryController::class)->only(['index']);
-    Route::apiResource('{dictionary}/word', WordController::class)->only(['index']);
+    Route::apiResource('dictionary/{dictionary}/word', WordController::class)->only(['index']);
 
-    Route::apiResource('{daily_dictionary}/daily-word', DailyWordController::class)->only(['index']);
     Route::apiResource('daily-dictionary', DailyDictionaryController::class)->only(['store', 'destroy']);
+    Route::apiResource('daily-dictionary/{daily_dictionary}/daily-word', DailyWordController::class)->only(['index']);
 });
