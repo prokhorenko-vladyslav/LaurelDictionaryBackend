@@ -38,7 +38,7 @@ Route::middleware('auth:api')->group(function() {
     Route::apiResource('user/setting', UserSettingController::class)->only('update');
 
     Route::apiResource('dictionary', DictionaryController::class)->only(['index']);
-    Route::apiResource('{dictionary}/word', WordController::class)->only(['index']);
+    Route::apiResource('dictionary/{dictionary}/word', WordController::class)->only(['index']);
 
     Route::apiResource('/word/{word}/learned', LearnedWordController::class)->only(['store']);
 });
