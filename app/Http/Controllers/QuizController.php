@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Word;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class QuizController extends Controller
 {
@@ -20,7 +21,7 @@ class QuizController extends Controller
         return response([
             'question' => [
                 'id' => $learnedWord->word->id,
-                'title' => ucfirst($learnedWord->word->title),
+                'title' => Str::ucfirst($learnedWord->word->title),
                 'answers' => $answers
             ]
         ]);
