@@ -15,12 +15,12 @@ class QuizController extends Controller
                         ->where('dictionary_id', $learnedWord->word->dictionary_id)
                         ->inRandomOrder()
                         ->limit(3)
-                        ->get([ 'id', 'title' ]);
+                        ->get([ 'id', 'translation' ]);
 
         return response([
             'question' => [
-                'id' => $learnedWord->id,
-                'title' => $learnedWord->title,
+                'id' => $learnedWord->word->id,
+                'title' => $learnedWord->word->title,
                 'answers' => $answers
             ]
         ]);
