@@ -18,6 +18,12 @@ class QuizController extends Controller
                         ->limit(3)
                         ->get([ 'id', 'translation' ]);
 
+        $answers->push([
+            'id' => $learnedWord->word->id,
+            'translation' => $learnedWord->translation
+        ]);
+        $answers->shuffle();
+
         return response([
             'question' => [
                 'id' => $learnedWord->word->id,
