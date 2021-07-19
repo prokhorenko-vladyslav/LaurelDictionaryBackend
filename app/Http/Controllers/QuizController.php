@@ -14,6 +14,7 @@ class QuizController extends Controller
         $learnedWord = User::current()->learnedWords()->with('word')->inRandomOrder()->first();
         $answers = Word::query()
                         ->where('dictionary_id', $learnedWord->word->dictionary_id)
+                        ->where('id', '!=', $learnedWord->word->id)
                         ->inRandomOrder()
                         ->limit(3)
                         ->get([ 'id', 'translation' ]);
