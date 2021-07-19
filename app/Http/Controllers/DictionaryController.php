@@ -12,9 +12,8 @@ class DictionaryController extends Controller
     {
         $dictionaries = Dictionary::query()
                             ->withCount('words')
-                            ->with('fromLanguage')
-                            ->with('toLanguage')
-                            ->get();
+                            ->with(['fromLanguage', 'toLanguage'])
+                            ->paginate();
 
         return DictionaryResource::collection($dictionaries);
     }
