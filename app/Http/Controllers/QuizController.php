@@ -25,4 +25,11 @@ class QuizController extends Controller
             ]
         ]);
     }
+
+    public function check(Request $request, Word $word)
+    {
+        return response([
+            'result' => $word->translation === $request->input('translation')
+        ]);
+    }
 }

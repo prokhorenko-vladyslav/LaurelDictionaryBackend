@@ -40,5 +40,8 @@ Route::middleware('auth:api')->group(function() {
     Route::apiResource('dictionary', DictionaryController::class)->only(['index']);
     Route::apiResource('dictionary/{dictionary}/word', WordController::class)->only(['index']);
 
-    Route::apiResource('/word/{word}/learned', LearnedWordController::class)->only(['store']);
+    Route::apiResource('word/{word}/learned', LearnedWordController::class)->only(['store']);
+
+    Route::get('quiz/next', [ \App\Http\Controllers\QuizController::class, 'next' ])->name('quiz.next');
+    Route::post('quiz/check/{word}', [ \App\Http\Controllers\QuizController::class, 'check' ])->name('quiz.check');
 });
