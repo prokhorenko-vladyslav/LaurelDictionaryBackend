@@ -20,7 +20,7 @@ class QuizController extends Controller
         return response([
             'question' => [
                 'id' => $learnedWord->word->id,
-                'title' => $learnedWord->word->title,
+                'title' => ucfirst($learnedWord->word->title),
                 'answers' => $answers
             ]
         ]);
