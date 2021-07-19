@@ -20,7 +20,7 @@ class QuizController extends Controller
 
         $answers->push([
             'id' => $learnedWord->word->id,
-            'translation' => $learnedWord->translation
+            'translation' => $learnedWord->word->translation
         ]);
         $answers->shuffle();
 
