@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
+use Laravel\Passport\HasApiTokens;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 /**
@@ -19,13 +20,12 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
  * @property string $name Name of the user
  * @property string $email Email of the user
  * @property string $password Password hash of the user
- * @property DailyDictionary[]|Collection $dailyDictionaries List of daily dictionaries for the user
- * @property DailyWord[]|Collection $dailyWords List of daily words from all daily dictionaries for the user
+ * @property LearnedWord[]|Collection $learnedWords List of learned words for the user
  * @property Setting[]|Collection $settings List of user settings
  */
-class User extends Authenticatable implements JWTSubject
+class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -58,42 +58,6 @@ class User extends Authenticatable implements JWTSubject
     ];
 
     /**
-     * Get the identifier that will be stored in the subject claim of the JWT.
-     *
-     * @return mixed
-     */
-    public function getJWTIdentifier()
-    {
-        return $this->getKey();
-    }
-
-    /**
-     * Return a key value array, containing any custom claims to be added to the JWT.
-     *
-     * @return array
-     */
-    public function getJWTCustomClaims(): array
-    {
-        return [];
-    }
-
-    /**
-     * @return HasMany
-     */
-    public function dailyDictionaries(): HasMany
-    {
-        return $this->hasMany(DailyDictionary::class);
-    }
-
-    /**
-     * @return HasManyThrough
-     */
-    public function dailyWords(): HasManyThrough
-    {
-        return $this->hasManyThrough(DailyWord::class, DailyDictionary::class);
-    }
-
-    /**
      * @return HasMany
      */
     public function settings(): HasMany
@@ -109,10 +73,20 @@ class User extends Authenticatable implements JWTSubject
     }
 
     /**
-     * @return static
+     * @return \Illuminate\Contracts\Auth\Authenticatable|self
      */
-    public static function current(): self
+    public static function current(): \Illuminate\Contracts\Auth\Authenticatable
     {
         return Auth::user();
+    }
+
+    public function learnedWords(): HasMany
+    {
+        return $this->hasMany(LearnedWord::class);
+    }
+
+    public function makeAppToken(): \Laravel\Passport\PersonalAccessTokenResult
+    {
+        return $this->createToken( config('app.name') );
     }
 }

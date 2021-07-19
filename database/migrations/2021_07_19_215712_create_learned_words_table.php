@@ -1,12 +1,12 @@
 <?php
 
-use App\Models\Dictionary;
 use App\Models\User;
+use App\Models\Word;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDailyDictionariesTable extends Migration
+class CreateLearnedWordsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,10 +15,10 @@ class CreateDailyDictionariesTable extends Migration
      */
     public function up()
     {
-        Schema::create('daily_dictionaries', function (Blueprint $table) {
+        Schema::create('learned_words', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Dictionary::class);
-            $table->foreignIdFor(User::class);
+            $table->foreignIdFor(Word::class)->constrained();
+            $table->foreignIdFor(User::class)->constrained();
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ class CreateDailyDictionariesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('daily_dictionaries');
+        Schema::dropIfExists('learned_words');
     }
 }
