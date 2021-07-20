@@ -23,13 +23,12 @@ class QuizController extends Controller
             'id' => $learnedWord->word->id,
             'translation' => $learnedWord->word->translation
         ]);
-        $answers->shuffle();
 
         return response([
             'question' => [
                 'id' => $learnedWord->word->id,
                 'title' => Str::ucfirst($learnedWord->word->title),
-                'answers' => $answers
+                'answers' => $answers->shuffle()
             ]
         ]);
     }
